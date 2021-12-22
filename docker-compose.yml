@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  mongodb:
+    image: mongo:4.4.10
+    volumes:
+      - mongo-data:/data
+
+  gocron:
+    build: .
+    environment:
+      GIN_MODE: debug
+      MONGO_URI: mongodb://mongodb:27017
+      MONGO_DB_NAME: cron_schedule
+    ports:
+      - 5000:5000
+
+volumes:
+  mongo-data:
