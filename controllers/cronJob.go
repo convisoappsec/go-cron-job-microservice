@@ -25,7 +25,7 @@ func (cj *cronJobControllers) Add(c *gin.Context) {
 	var errorResponse models.Error
 
 	if err := json.NewDecoder(c.Request.Body).Decode(&cronJob); err != nil {
-		errorResponse.Code = http.StatusBadRequest
+		errorResponse.Code = http.StatusUnprocessableEntity
 		errorResponse.Message = "There was an error while parsing the request"
 		fmt.Println(err)
 
@@ -34,7 +34,7 @@ func (cj *cronJobControllers) Add(c *gin.Context) {
 	}
 
 	if cronJob.Frequency == "" {
-		errorResponse.Code = http.StatusBadRequest
+		errorResponse.Code = http.StatusUnprocessableEntity
 		errorResponse.Message = "Cron job frequency was not provided"
 
 		utils.SendError(c, errorResponse)
@@ -42,7 +42,7 @@ func (cj *cronJobControllers) Add(c *gin.Context) {
 	}
 
 	if cronJob.URL == "" {
-		errorResponse.Code = http.StatusBadRequest
+		errorResponse.Code = http.StatusUnprocessableEntity
 		errorResponse.Message = "URL was not provided"
 
 		utils.SendError(c, errorResponse)
