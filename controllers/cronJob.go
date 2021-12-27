@@ -74,7 +74,7 @@ func (cj *cronJobControllers) Delete(c *gin.Context) {
 
 	cronJobID, err := primitive.ObjectIDFromHex(cronJobIDParameter)
 	if err != nil {
-		errorResponse.Code = http.StatusBadRequest
+		errorResponse.Code = http.StatusUnprocessableEntity
 		errorResponse.Message = "The provided cron job ID is invalid"
 
 		utils.SendError(c, errorResponse)
